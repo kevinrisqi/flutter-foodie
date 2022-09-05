@@ -1,13 +1,21 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable
+// ignore_for_file: prefer_const_constructors, must_be_immutable, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   SignInPage({super.key});
 
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
+  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +86,28 @@ class SignInPage extends StatelessWidget {
                 TextFormField(
                   style: primaryTextStyle,
                   controller: passwordController,
-                  obscureText: true,
+                  obscureText: isVisible ? false : true,
                   decoration: InputDecoration(
                     hintText: 'Masukkan Password Anda',
                     hintStyle: primaryTextStyle.copyWith(
                       color: greyColor,
                       fontWeight: light,
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isVisible = !isVisible;
+                          print(isVisible);
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Image.asset(
+                          'assets/images/ic_visibility.png',
+                          width: 2,
+                          height: 2,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -169,9 +193,22 @@ class SignInPage extends StatelessWidget {
                           SizedBox(
                             width: 12,
                           ),
-                          Text(
-                            'Masuk menggunakan Google',
-                            style: primaryTextStyle,
+                          RichText(
+                            text: TextSpan(
+                              style: primaryTextStyle.copyWith(
+                                color: fullBlackColor,
+                              ),
+                              children: [
+                                TextSpan(text: 'Masuk menggunakan'),
+                                TextSpan(
+                                  text: ' Apple',
+                                  style: primaryTextStyle.copyWith(
+                                    fontWeight: bold,
+                                    color: fullBlackColor,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -203,10 +240,21 @@ class SignInPage extends StatelessWidget {
                           SizedBox(
                             width: 12,
                           ),
-                          Text(
-                            'Masuk menggunakan Google',
-                            style: primaryTextStyle.copyWith(
-                              color: backgroundColor,
+                          RichText(
+                            text: TextSpan(
+                              style: primaryTextStyle.copyWith(
+                                color: backgroundColor,
+                              ),
+                              children: [
+                                TextSpan(text: 'Masuk menggunakan'),
+                                TextSpan(
+                                  text: ' Apple',
+                                  style: primaryTextStyle.copyWith(
+                                    fontWeight: bold,
+                                    color: backgroundColor,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
