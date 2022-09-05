@@ -97,7 +97,6 @@ class _SignInPageState extends State<SignInPage> {
                       onTap: () {
                         setState(() {
                           isVisible = !isVisible;
-                          print(isVisible);
                         });
                       },
                       child: Container(
