@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
+import 'package:foodie/modules/features/find-location/view/ui/find_location_page.dart';
 import 'package:foodie/modules/features/sign-in/controllers/authentication_controller.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
@@ -32,18 +33,12 @@ class _ContentState extends State<Content> {
     handleSignIn() async {
       if (await controller.login(
           email: emailController.text, password: passwordController.text)) {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => FindLocationPage()));
-        print('success');
+        Get.off(() => FindLocationPage());
       } else {
-        Get.snackbar(
-          "Gagal Login",
-          "Email atau password salah !",
-          colorText: backgroundColor,
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: alertColor
-        );
-        print('email / password salah!');
+        Get.snackbar("Gagal Login", "Email atau password salah !",
+            colorText: backgroundColor,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: alertColor);
       }
     }
 
