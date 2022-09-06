@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
-import 'package:foodie/modules/features/find-location/view/ui/find_location_page.dart';
+import 'package:foodie/modules/features/sign-in/controllers/authentication_controller.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 
 class Content extends StatefulWidget {
   Content({super.key});
@@ -13,13 +15,38 @@ class Content extends StatefulWidget {
 
 class _ContentState extends State<Content> {
   TextEditingController emailController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
 
   bool isVisible = false;
 
   @override
+  void initState() {
+    Get.lazyPut(() => AuthenticationController());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    AuthenticationController controller = Get.find();
+
+    handleSignIn() async {
+      if (await controller.login(
+          email: emailController.text, password: passwordController.text)) {
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => FindLocationPage()));
+        print('success');
+      } else {
+        Get.snackbar(
+          "Gagal Login",
+          "Email atau password salah !",
+          colorText: backgroundColor,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: alertColor
+        );
+        print('email / password salah!');
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -91,8 +118,7 @@ class _ContentState extends State<Content> {
         ),
         ElevatedButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => FindLocationPage()));
+            handleSignIn();
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
@@ -179,7 +205,7 @@ class _ContentState extends State<Content> {
                       children: [
                         TextSpan(text: 'Masuk menggunakan'),
                         TextSpan(
-                          text: ' Apple',
+                          text: ' Google',
                           style: primaryTextStyle.copyWith(
                             fontWeight: bold,
                             color: fullBlackColor,

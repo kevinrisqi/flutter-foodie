@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
+import 'package:foodie/modules/global_controllers/connection_controller.dart';
+import 'package:get/get.dart';
 
 class NoConnectionPage extends StatefulWidget {
   const NoConnectionPage({super.key});
@@ -13,6 +15,8 @@ class NoConnectionPage extends StatefulWidget {
 class _NoConnectionPageState extends State<NoConnectionPage> {
   @override
   Widget build(BuildContext context) {
+    final ConnectionManagerController controller = Get.find();
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -41,16 +45,18 @@ class _NoConnectionPageState extends State<NoConnectionPage> {
                       height: 12,
                     ),
                     Text(
-                      'Koneksi anda terputus',
-                      style: primaryTextStyle.copyWith(
-                        color: greyColor,
-                        fontWeight: semiBold,
+                        'Koneksi anda terputus',
+                        style: primaryTextStyle.copyWith(
+                          color: greyColor,
+                          fontWeight: semiBold,
+                        ),
                       ),
-                    ),
+                    
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
                     shape: RoundedRectangleBorder(
