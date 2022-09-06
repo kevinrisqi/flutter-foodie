@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:foodie/config/pages/no_connection_page.dart';
 import 'package:foodie/modules/features/sign-in/view/ui/signin_page.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignInPage(),
+      home: NoConnectionPage(),
     );
   }
 }
