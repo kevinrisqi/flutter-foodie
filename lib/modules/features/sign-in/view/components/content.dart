@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
 import 'package:foodie/modules/features/find-location/view/ui/find_location_page.dart';
-import 'package:foodie/modules/features/sign-in/controllers/authentication_controller.dart';
+import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
+import 'package:foodie/modules/features/sign-in/models/user_model.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
 
@@ -15,31 +16,29 @@ class Content extends StatefulWidget {
 }
 
 class _ContentState extends State<Content> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-  bool isVisible = false;
-
-  @override
-  void initState() {
-    Get.lazyPut(() => AuthenticationController());
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    AuthenticationController controller = Get.find();
+    AuthController controller = Get.find();
 
     handleSignIn() async {
       if (await controller.login(
-          email: emailController.text, password: passwordController.text)) {
+        email: controller.emailController.text,
+        password: controller.passwordController.text,
+      )) {
         Get.off(() => FindLocationPage());
       } else {
-        Get.snackbar("Gagal Login", "Email atau password salah !",
-            colorText: backgroundColor,
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: alertColor);
+        Get.snackbar(
+          "Gagal Login",
+          "Email atau password salah !",
+          colorText: backgroundColor,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: alertColor,
+        );
       }
+      // await controller.login(
+      //   email: controller.emailController.text,
+      //   password: controller.passwordController.text,
+      // );
     }
 
     return Column(
@@ -63,7 +62,7 @@ class _ContentState extends State<Content> {
         ),
         TextFormField(
           style: primaryTextStyle,
-          controller: emailController,
+          controller: controller.emailController,
           decoration: InputDecoration(
             hintText: 'Masukkan Email Anda',
             hintStyle: primaryTextStyle.copyWith(
@@ -81,28 +80,28 @@ class _ContentState extends State<Content> {
             fontWeight: light,
           ),
         ),
-        TextFormField(
-          style: primaryTextStyle,
-          controller: passwordController,
-          obscureText: isVisible ? false : true,
-          decoration: InputDecoration(
-            hintText: 'Masukkan Password Anda',
-            hintStyle: primaryTextStyle.copyWith(
-              color: greyColor,
-              fontWeight: light,
-            ),
-            suffixIcon: GestureDetector(
-              onTap: () {
-                setState(() {
-                  isVisible = !isVisible;
-                });
-              },
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: Image.asset(
-                  'assets/images/ic_visibility.png',
-                  width: 2,
-                  height: 2,
+        Obx(
+          () => TextFormField(
+            style: primaryTextStyle,
+            controller: controller.passwordController,
+            obscureText: controller.isVisible.isTrue ? false : true,
+            decoration: InputDecoration(
+              hintText: 'Masukkan Password Anda',
+              hintStyle: primaryTextStyle.copyWith(
+                color: greyColor,
+                fontWeight: light,
+              ),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  controller.isVisible.toggle();
+                },
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Image.asset(
+                    'assets/images/ic_visibility.png',
+                    width: 2,
+                    height: 2,
+                  ),
                 ),
               ),
             ),

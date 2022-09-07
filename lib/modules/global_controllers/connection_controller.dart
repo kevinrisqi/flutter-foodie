@@ -38,12 +38,15 @@ class ConnectionManagerController extends GetxController {
     switch (result) {
       case ConnectivityResult.wifi:
         connectionType.value = 1;
+        update();
         break;
       case ConnectivityResult.mobile:
         connectionType.value = 2;
+        update();
         break;
       case ConnectivityResult.none:
         connectionType.value = 0;
+        update();
         break;
       default:
     }

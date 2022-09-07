@@ -15,8 +15,6 @@ class NoConnectionPage extends StatefulWidget {
 class _NoConnectionPageState extends State<NoConnectionPage> {
   @override
   Widget build(BuildContext context) {
-    final ConnectionManagerController controller = Get.find();
-
     return Scaffold(
       body: SafeArea(
         child: Stack(

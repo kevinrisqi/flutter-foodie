@@ -25,9 +25,8 @@ class AuthRepository {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
       UserModel user = UserModel.fromJson(data['user']);
+      user.token = data['token'];
       return user;
-      // }else if (response.statusCode == 422) {
-      //   var error = jsonDecode(response.body)['errors'];
     } else {
       throw Exception('Login Failed!');
     }
