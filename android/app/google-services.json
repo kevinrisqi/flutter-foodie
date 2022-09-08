@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "105794210685",
+    "project_id": "flutter-foodie-b5ab1",
+    "storage_bucket": "flutter-foodie-b5ab1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105794210685:android:a09d84d8e64f40f75d9a14",
+        "android_client_info": {
+          "package_name": "com.venturo.foodie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105794210685-8k741r891hq7q70vdulhv4375ubs89fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2NN5HzOQuc5Xb1Yf0LTe6aNn2sPrVbcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105794210685-8k741r891hq7q70vdulhv4375ubs89fa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "105794210685-lo0nvfem8q6lvh3n0d1fnpi5lqdt4pgs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.venturo.foodie"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
