@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
 import 'package:foodie/modules/features/find-location/view/ui/find_location_page.dart';
 import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
-import 'package:foodie/modules/features/sign-in/models/user_model.dart';
-import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
 
 class Content extends StatefulWidget {
@@ -26,19 +24,7 @@ class _ContentState extends State<Content> {
         password: controller.passwordController.text,
       )) {
         Get.off(() => FindLocationPage());
-      } else {
-        Get.snackbar(
-          "Gagal Login",
-          "Email atau password salah !",
-          colorText: backgroundColor,
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: alertColor,
-        );
       }
-      // await controller.login(
-      //   email: controller.emailController.text,
-      //   password: controller.passwordController.text,
-      // );
     }
 
     return Column(
@@ -170,7 +156,9 @@ class _ContentState extends State<Content> {
           height: 40,
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            controller.signInWithGoogle();
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: backgroundColor,
             shape: RoundedRectangleBorder(

@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:105794210685:android:a09d84d8e64f40f75d9a14",
+        "mobilesdk_app_id": "1:105794210685:android:1fc9fef3b5c5cdbe5d9a14",
         "android_client_info": {
-          "package_name": "com.venturo.foodie"
+          "package_name": "com.example.foodie"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "105794210685-rj7fsqu7062jvnvd17cdfqr1p6ce8qgn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodie",
+            "certificate_hash": "0ddf28e4a56c3e07a8d7034ed92e57786ff45564"
+          }
+        },
         {
           "client_id": "105794210685-8k741r891hq7q70vdulhv4375ubs89fa.apps.googleusercontent.com",
           "client_type": 3

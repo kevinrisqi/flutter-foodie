@@ -4,6 +4,6 @@ import 'package:get/get.dart';
 class ControllerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => ConnectionManagerController());
+    Get.lazyPut<ConnectionManagerController>(() => ConnectionManagerController());
   }
 }

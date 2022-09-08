@@ -31,6 +31,7 @@ class ConnectionManagerController extends GetxController {
       }
     }
 
+
     return _updateState(connectivityResult);
   }
 

@@ -4,7 +4,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
+import 'package:foodie/modules/features/find-location/controllers/find_location_controller.dart';
 import 'package:foodie/modules/features/home/view/ui/home_page.dart';
+import 'package:get/get.dart';
 
 class FindLocationPage extends StatefulWidget {
   const FindLocationPage({super.key});
@@ -17,13 +19,13 @@ class _FindLocationPageState extends State<FindLocationPage> {
   @override
   void initState() {
     super.initState();
-    startTimer();
+    // startTimer();
   }
 
-  Future<Timer> startTimer() async {
-    var duration = Duration(seconds: 2);
-    return Timer(duration, route);
-  }
+  // Future<Timer> startTimer() async {
+  //   var duration = Duration(seconds: 2);
+  //   return Timer(duration, route);
+  // }
 
   route() {
     Navigator.pushReplacement(
@@ -32,12 +34,14 @@ class _FindLocationPageState extends State<FindLocationPage> {
 
   @override
   Widget build(BuildContext context) {
+    FindLocationController controller = Get.find<FindLocationController>();
     return Scaffold(
       body: Column(
         children: [
           Stack(
             alignment: Alignment.center,
             children: [
+              Icon(Icons.location_on),
               Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height - 100,
@@ -72,7 +76,7 @@ class _FindLocationPageState extends State<FindLocationPage> {
                   Container(
                     width: MediaQuery.of(context).size.width - 40 * 2,
                     child: Text(
-                      'Perumahan Griyashanta Permata N-524, Mojolangu, Kec. Lowokwaru, Kota Malang',
+                      controller.address.value,
                       style: primaryTextStyle.copyWith(
                           fontSize: 20, fontWeight: semiBold),
                       textAlign: TextAlign.center,

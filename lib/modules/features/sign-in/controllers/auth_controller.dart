@@ -1,13 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
 import 'package:foodie/modules/features/sign-in/models/user_model.dart';
 import 'package:foodie/modules/features/sign-in/repository/auth_repository.dart';
+import 'package:foodie/shared/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   final isAuth = false.obs;
   final isVisible = false.obs;
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -27,28 +33,54 @@ class AuthController extends GetxController {
           print(_user.token);
           return true;
         } else {
-          Get.snackbar(
-            "Login Failed",
-            "Email tidak valid !",
-            colorText: backgroundColor,
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: alertColor,
+          snackbar(
+            'Login Failed',
+            'Email tidak valid !',
+            backgroundColor,
+            SnackPosition.BOTTOM,
+            alertColor,
           );
-          // return false;
+          return false;
         }
       } else {
-        Get.snackbar(
-          "Form Kosong",
-          "Email atau password tidak boleh kosong !",
-          colorText: backgroundColor,
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: alertColor,
+        snackbar(
+          'Form Kosong',
+          'Email atau password tidak boleh kosong !',
+          backgroundColor,
+          SnackPosition.BOTTOM,
+          alertColor,
         );
-        // return false;
+
+        return false;
       }
     } catch (e) {
       return false;
     }
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      await auth.signInWithCredential(credential);
+      print(auth.currentUser!.email);
+      await AuthRepository().loginGoogle(
+          email: auth.currentUser!.email, nama: auth.currentUser!.displayName);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      rethrow;
+    }
+  }
+
+  Future<void> signOutFromGoogle() async {
+    await googleSignIn.signOut();
+    await auth.signOut();
   }
 
   void writeToken() {
