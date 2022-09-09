@@ -24,17 +24,12 @@ class MyApp extends StatelessWidget {
     Get.put(ConnectionManagerController());
     Get.put(AuthController());
     Get.put(FindLocationController());
-    final ConnectionManagerController controller =
-        Get.find<ConnectionManagerController>();
-    return Obx(
-      () => GetMaterialApp(
-        initialBinding: ControllerBinding(),
-        debugShowCheckedModeBanner: false,
-        home: controller.connectionType.value == 1 ||
-                controller.connectionType.value == 2
-            ? SignInPage()
-            : NoConnectionPage(),
-      ),
+    // final ConnectionManagerController controller =
+    //     Get.find<ConnectionManagerController>();
+    return GetMaterialApp(
+      initialBinding: ControllerBinding(),
+      debugShowCheckedModeBanner: false,
+      home: SignInPage(),
     );
   }
 }

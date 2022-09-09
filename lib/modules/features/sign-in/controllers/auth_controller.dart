@@ -92,6 +92,7 @@ class AuthController extends GetxController {
 
   void writeToken(String token) {
     final box = GetStorage();
+    box.write('isLogged', true);
     box.write('token', _user.token);
   }
 
@@ -102,6 +103,7 @@ class AuthController extends GetxController {
 
   void removeToken() {
     final box = GetStorage();
+    box.remove('isLogged');
     box.remove('token');
   }
 }

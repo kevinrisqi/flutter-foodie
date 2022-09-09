@@ -52,6 +52,7 @@ class FindLocationController extends GetxController {
         longitude.value = 'Longitude: ${position.longitude}';
 
         await getAddress(position);
+        print(address);
       });
       return true;
     } catch (e) {

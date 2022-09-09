@@ -7,15 +7,31 @@ import 'package:foodie/modules/features/sign-in/view/ui/signin_page.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final AuthController controller = Get.find<AuthController>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void handleLogout() async {
+    await controller.signOutFromGoogle();
+    Get.to(SignInPage());
+  }
 
   @override
   Widget build(BuildContext context) {
-    final AuthController controller = Get.find<AuthController>();
-    final box = GetStorage();
-
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -80,8 +96,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          controller.signOutFromGoogle();
-          Get.to(SignInPage());
+          handleLogout();
         },
         child: Icon(Icons.logout),
       ),
