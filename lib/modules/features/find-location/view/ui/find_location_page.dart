@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
 import 'package:foodie/modules/features/find-location/controllers/find_location_controller.dart';
-import 'package:foodie/modules/features/home/view/ui/home_page.dart';
+import 'package:foodie/modules/features/main/view/ui/main_page.dart';
 import 'package:get/get.dart';
 
 class FindLocationPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _FindLocationPageState extends State<FindLocationPage> {
       Future.delayed(
         Duration(seconds: 3),
         (() => Get.off(
-              HomePage(),
+              MainPage(),
             )),
       );
     });

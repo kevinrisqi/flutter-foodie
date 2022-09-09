@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/config/pages/no_connection_page.dart';
 import 'package:foodie/config/themes/theme.dart';
+import 'package:foodie/modules/features/main/controllers/main_controller.dart';
 import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
 import 'package:foodie/modules/features/sign-in/view/ui/signin_page.dart';
 import 'package:get/get.dart';
@@ -10,14 +11,15 @@ import 'package:get/instance_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class MainPage extends StatefulWidget {
+  MainPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
+  final MainController cHome = Get.find<MainController>();
   final AuthController controller = Get.find<AuthController>();
 
   @override
@@ -106,6 +108,10 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: blackColor,
+        onTap: (value) {
+          cHome.currentIndex.value = value;
+          print(cHome.currentIndex);
+        },
         items: [
           BottomNavigationBarItem(
             icon: Icon(
@@ -115,20 +121,34 @@ class _HomePageState extends State<HomePage> {
             label: 'Beranda',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.food_bank,
-              color: greyColor,
+            icon: Column(
+              children: [
+                Image.asset(
+                  'assets/images/ic_order.png',
+                  width: 20,
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  'Pesanan',
+                  style: primaryTextStyle.copyWith(
+                    color: backgroundColor,
+                  ),
+                )
+              ],
             ),
-            label: 'Pesanan',
+            label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: greyColor,
+            icon: Image.asset(
+              'assets/images/ic_user.png',
+              width: 20,
             ),
             label: 'Profil',
           ),
         ],
+        selectedItemColor: Colors.white,
       ),
     );
   }

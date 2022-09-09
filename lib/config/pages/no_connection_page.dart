@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
-import 'package:foodie/modules/features/home/view/ui/home_page.dart';
+import 'package:foodie/modules/features/main/view/ui/main_page.dart';
 import 'package:foodie/modules/features/sign-in/view/ui/signin_page.dart';
 import 'package:foodie/modules/global_controllers/connection_controller.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class _NoConnectionPageState extends State<NoConnectionPage> {
         Get.find<ConnectionManagerController>();
     return Obx(
       () => Scaffold(
-        body: controller.connectionType.value == 0 
+        body: controller.connectionType.value == 0
             ? SafeArea(
                 child: Stack(
                   alignment: Alignment.center,

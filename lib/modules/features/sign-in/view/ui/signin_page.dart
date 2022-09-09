@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../home/view/ui/home_page.dart';
+import '../../../main/view/ui/main_page.dart';
 import '../components/content.dart';
 
 class SignInPage extends StatefulWidget {
@@ -35,7 +35,7 @@ class _SignInPageState extends State<SignInPage> {
     final box = GetStorage();
     bool isLogged = await box.read('isLogged') ?? false;
     if (isLogged) {
-      Get.to(HomePage());
+      Get.to(MainPage());
     } else {
       Get.to(SignInPage());
     }

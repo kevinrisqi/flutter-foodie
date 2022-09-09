@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:foodie/modules/features/home/view/ui/home_page.dart';
+import 'package:foodie/modules/features/main/view/ui/main_page.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
