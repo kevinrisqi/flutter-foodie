@@ -27,6 +27,11 @@ class _ContentState extends State<Content> {
       }
     }
 
+    handleSignInWIthGoogle() async {
+      await controller.signInWithGoogle();
+      Get.off(FindLocationPage());
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -157,7 +162,7 @@ class _ContentState extends State<Content> {
         ),
         ElevatedButton(
           onPressed: () {
-            controller.signInWithGoogle();
+            handleSignInWIthGoogle();
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: backgroundColor,

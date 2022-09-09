@@ -16,25 +16,27 @@ class FindLocationPage extends StatefulWidget {
 }
 
 class _FindLocationPageState extends State<FindLocationPage> {
+  FindLocationController controller = Get.find<FindLocationController>();
+
   @override
   void initState() {
     super.initState();
-    // startTimer();
+    _getLocation().then((value) {
+      Future.delayed(
+        Duration(seconds: 3),
+        (() => Get.off(
+              HomePage(),
+            )),
+      );
+    });
   }
 
-  // Future<Timer> startTimer() async {
-  //   var duration = Duration(seconds: 2);
-  //   return Timer(duration, route);
-  // }
-
-  route() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+  Future _getLocation() async {
+    await controller.getLocation();
   }
 
   @override
   Widget build(BuildContext context) {
-    FindLocationController controller = Get.find<FindLocationController>();
     return Scaffold(
       body: Column(
         children: [
@@ -78,7 +80,9 @@ class _FindLocationPageState extends State<FindLocationPage> {
                     child: Text(
                       controller.address.value,
                       style: primaryTextStyle.copyWith(
-                          fontSize: 20, fontWeight: semiBold),
+                        fontSize: 20,
+                        fontWeight: semiBold,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   )

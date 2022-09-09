@@ -11,6 +11,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthController extends GetxController {
   final isAuth = false.obs;
   final isVisible = false.obs;
+  final isLoading = false.obs;
+
+  var nama = ''.obs;
+  var email = ''.obs;
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -29,7 +33,7 @@ class AuthController extends GetxController {
             password: password,
           );
           _user = user;
-          writeToken();
+          writeToken(_user.token.toString());
           print(_user.token);
           return true;
         } else {
@@ -69,9 +73,11 @@ class AuthController extends GetxController {
         idToken: googleSignInAuthentication.idToken,
       );
       await auth.signInWithCredential(credential);
-      print(auth.currentUser!.email);
-      await AuthRepository().loginGoogle(
+      nama.value = auth.currentUser!.displayName!;
+      email.value = auth.currentUser!.email!;
+      UserModel user = await AuthRepository().loginGoogle(
           email: auth.currentUser!.email, nama: auth.currentUser!.displayName);
+      writeToken(user.token.toString());
     } on FirebaseAuthException catch (e) {
       print(e.message);
       rethrow;
@@ -81,10 +87,21 @@ class AuthController extends GetxController {
   Future<void> signOutFromGoogle() async {
     await googleSignIn.signOut();
     await auth.signOut();
+    removeToken();
   }
 
-  void writeToken() {
+  void writeToken(String token) {
     final box = GetStorage();
     box.write('token', _user.token);
+  }
+
+  String readToken() {
+    final box = GetStorage();
+    return box.read('token') ?? '';
+  }
+
+  void removeToken() {
+    final box = GetStorage();
+    box.remove('token');
   }
 }
