@@ -23,7 +23,7 @@ class _NoConnectionPageState extends State<NoConnectionPage> {
         Get.find<ConnectionManagerController>();
     return Obx(
       () => Scaffold(
-        body: controller.connectionType.value == 0
+        body: controller.connectionType.value == 0 
             ? SafeArea(
                 child: Stack(
                   alignment: Alignment.center,
@@ -60,7 +60,8 @@ class _NoConnectionPageState extends State<NoConnectionPage> {
                           ],
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primaryColor,
                             shape: RoundedRectangleBorder(

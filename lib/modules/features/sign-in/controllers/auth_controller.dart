@@ -22,7 +22,7 @@ class AuthController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  late UserModel _user;
+  UserModel? _user;
 
   Future<bool> login({String? email, String? password}) async {
     try {
@@ -33,8 +33,8 @@ class AuthController extends GetxController {
             password: password,
           );
           _user = user;
-          writeToken(_user.token.toString());
-          print(_user.token);
+          writeToken(_user!.token.toString());
+          print(_user!.token);
           return true;
         } else {
           snackbar(
@@ -77,6 +77,7 @@ class AuthController extends GetxController {
       email.value = auth.currentUser!.email!;
       UserModel user = await AuthRepository().loginGoogle(
           email: auth.currentUser!.email, nama: auth.currentUser!.displayName);
+      print(user.token);
       writeToken(user.token.toString());
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -93,7 +94,7 @@ class AuthController extends GetxController {
   void writeToken(String token) {
     final box = GetStorage();
     box.write('isLogged', true);
-    box.write('token', _user.token);
+    box.write('token', token);
   }
 
   String readToken() {
