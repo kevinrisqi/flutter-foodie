@@ -31,7 +31,6 @@ class ConnectionManagerController extends GetxController {
       }
     }
 
-
     return _updateState(connectivityResult);
   }
 
@@ -50,6 +49,7 @@ class ConnectionManagerController extends GetxController {
         update();
         break;
       default:
+        connectionType.value = 0;
     }
   }
 

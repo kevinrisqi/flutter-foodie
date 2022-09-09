@@ -17,16 +17,13 @@ class NoConnectionPage extends StatefulWidget {
 }
 
 class _NoConnectionPageState extends State<NoConnectionPage> {
-  ConnectionManagerController controller =
-      Get.find<ConnectionManagerController>();
   @override
   Widget build(BuildContext context) {
     ConnectionManagerController controller =
         Get.find<ConnectionManagerController>();
     return Obx(
       () => Scaffold(
-        body: controller.connectionType.value != 1 ||
-                controller.connectionType.value != 2
+        body: controller.connectionType.value == 0
             ? SafeArea(
                 child: Stack(
                   alignment: Alignment.center,
@@ -63,9 +60,7 @@ class _NoConnectionPageState extends State<NoConnectionPage> {
                           ],
                         ),
                         ElevatedButton(
-                          onPressed: () {
-                            controller.connectionType.value = 1;
-                          },
+                          onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primaryColor,
                             shape: RoundedRectangleBorder(
