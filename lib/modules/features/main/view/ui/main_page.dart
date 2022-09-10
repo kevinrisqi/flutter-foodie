@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/config/pages/no_connection_page.dart';
 import 'package:foodie/config/themes/theme.dart';
+import 'package:foodie/modules/features/home/view/ui/home_page.dart';
 import 'package:foodie/modules/features/main/controllers/main_controller.dart';
+import 'package:foodie/modules/features/order/view/ui/order_page.dart';
+import 'package:foodie/modules/features/profile/view/ui/profile_page.dart';
 import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
 import 'package:foodie/modules/features/sign-in/view/ui/signin_page.dart';
 import 'package:get/get.dart';
@@ -19,7 +22,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final MainController cHome = Get.find<MainController>();
+  final MainController cMain = Get.find<MainController>();
   final AuthController controller = Get.find<AuthController>();
 
   @override
@@ -33,69 +36,26 @@ class _MainPageState extends State<MainPage> {
     Get.to(SignInPage());
   }
 
+  Widget body() {
+    switch (cMain.currentIndex.value) {
+      case 0:
+        return HomePage();
+      case 1:
+        return OrderPage();
+      case 2:
+        return ProfilePage();
+      default:
+        return HomePage();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NoConnectionPage(
         child: SafeArea(
-          child: ListView(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 70,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 25,
-                  vertical: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: backgroundColor,
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(30),
-                  ),
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Pencarian',
-                    hintStyle: primaryTextStyle.copyWith(
-                      color: greyColor,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: primaryColor,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(
-                        color: primaryColor,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(
-                        color: primaryColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('${controller.nama}'),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Text('${controller.email}'),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(controller.readToken()),
-                  ],
-                ),
-              ),
-            ],
+          child: Obx(
+            () => body(),
           ),
         ),
       ),
@@ -106,49 +66,43 @@ class _MainPageState extends State<MainPage> {
         child: Icon(Icons.logout),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: blackColor,
-        onTap: (value) {
-          cHome.currentIndex.value = value;
-          print(cHome.currentIndex);
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: backgroundColor,
-            ),
-            label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Column(
-              children: [
-                Image.asset(
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+        child: BottomAppBar(
+          child: BottomNavigationBar(
+            backgroundColor: blackColor,
+            onTap: (value) {
+              cMain.currentIndex.value = value;
+              print(cMain.currentIndex);
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  size: 25,
+                  color: backgroundColor,
+                ),
+                label: 'Beranda',
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset(
                   'assets/images/ic_order.png',
+                  width: 32,
+                ),
+                label: 'Pesanan',
+              ),
+              BottomNavigationBarItem(
+                icon: Image.asset(
+                  'assets/images/ic_user.png',
                   width: 20,
                 ),
-                SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  'Pesanan',
-                  style: primaryTextStyle.copyWith(
-                    color: backgroundColor,
-                  ),
-                )
-              ],
-            ),
-            label: '',
+                label: 'Profil',
+              ),
+            ],
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.grey,
           ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/ic_user.png',
-              width: 20,
-            ),
-            label: 'Profil',
-          ),
-        ],
-        selectedItemColor: Colors.white,
+        ),
       ),
     );
   }

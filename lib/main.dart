@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     Get.put(ConnectionManagerController());
     Get.put(AuthController());
     Get.put(FindLocationController());
-    Get.put(HomeController());
+    Get.put(MainController());
     return GetMaterialApp(
       initialBinding: ControllerBinding(),
       debugShowCheckedModeBanner: false,
