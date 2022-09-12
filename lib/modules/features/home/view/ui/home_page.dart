@@ -1,17 +1,39 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:foodie/modules/features/home/controllers/promo_controller.dart';
+import 'package:foodie/modules/features/home/view/components/discount_card.dart';
+import 'package:foodie/modules/features/home/view/components/voucher_card.dart';
 import 'package:get/get.dart';
 
 import '../../../../../config/themes/theme.dart';
 import '../../../main/controllers/main_controller.dart';
 import '../../../sign-in/controllers/auth_controller.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final MainController cHome = Get.find<MainController>();
-  final AuthController controller = Get.find<AuthController>();
+
+  final AuthController cAuth = Get.find<AuthController>();
+
+  final PromoController cPromo = Get.find<PromoController>();
+
+  @override
+  void initState() {
+    handleGetPromo();
+    super.initState();
+  }
+
+  handleGetPromo() async {
+    var token = cAuth.readToken();
+    await cPromo.getPromo(token);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,8 +132,10 @@ class HomePage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        
-                        
+                        VoucherCard(),
+                        DiscountCard(),
+                        VoucherCard(),
+                        DiscountCard(),
                       ],
                     ),
                   ],

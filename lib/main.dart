@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie/config/pages/no_connection_page.dart';
 import 'package:foodie/modules/features/find-location/controllers/find_location_controller.dart';
+import 'package:foodie/modules/features/home/controllers/promo_controller.dart';
 import 'package:foodie/modules/features/main/controllers/main_controller.dart';
 import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
 import 'package:foodie/modules/features/sign-in/view/ui/signin_page.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
     Get.put(AuthController());
     Get.put(FindLocationController());
     Get.put(MainController());
+    Get.put(PromoController());
     return GetMaterialApp(
       initialBinding: ControllerBinding(),
       debugShowCheckedModeBanner: false,
