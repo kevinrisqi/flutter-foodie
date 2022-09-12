@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodie/config/themes/theme.dart';
-import 'package:foodie/modules/features/main/view/ui/main_page.dart';
 import 'package:foodie/modules/features/sign-in/view/ui/signin_page.dart';
 import 'package:foodie/modules/global_controllers/connection_controller.dart';
 import 'package:get/get.dart';
@@ -61,6 +60,7 @@ class _NoConnectionPageState extends State<NoConnectionPage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
+                            Get.to(SignInPage());
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primaryColor,

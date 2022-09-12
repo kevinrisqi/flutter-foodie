@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,58 +17,106 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Container(
-          width: double.infinity,
-          height: 70,
-          padding: EdgeInsets.symmetric(
-            horizontal: 25,
-            vertical: 10,
-          ),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(30),
+        Material(
+          elevation: 10,
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+          child: Container(
+            width: double.infinity,
+            height: 75,
+            padding: EdgeInsets.symmetric(
+              horizontal: 25,
+              vertical: 10,
             ),
-          ),
-          child: TextFormField(
-            decoration: InputDecoration(
-              hintText: 'Pencarian',
-              hintStyle: primaryTextStyle.copyWith(
-                color: greyColor,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(30),
               ),
-              prefixIcon: Icon(
-                Icons.search,
-                color: primaryColor,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide(
+            ),
+            child: TextFormField(
+              decoration: InputDecoration(
+                hintText: 'Pencarian',
+                hintStyle: primaryTextStyle.copyWith(
+                  color: greyColor,
+                ),
+                prefixIcon: Icon(
+                  Icons.search,
                   color: primaryColor,
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: BorderSide(
-                  color: primaryColor,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(
+                    color: primaryColor,
+                  ),
                 ),
               ),
             ),
           ),
         ),
+        // Container(
+        //   margin: EdgeInsets.all(24),
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       Text('${controller.nama}'),
+        //       SizedBox(
+        //         height: 12,
+        //       ),
+        //       Text('${controller.email}'),
+        //       SizedBox(
+        //         height: 10,
+        //       ),
+        //       Text(controller.readToken()),
+        //     ],
+        //   ),
+        // ),
         Container(
-          margin: EdgeInsets.all(24),
+          margin: EdgeInsets.symmetric(horizontal: 25),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${controller.nama}'),
               SizedBox(
-                height: 12,
+                height: 22,
               ),
-              Text('${controller.email}'),
-              SizedBox(
-                height: 10,
+              Row(
+                children: [
+                  Image.asset(
+                    'assets/images/ic_promo.png',
+                    width: 23,
+                    height: 16,
+                  ),
+                  SizedBox(
+                    width: 9,
+                  ),
+                  Text(
+                    'Promo yang tersedia',
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 20,
+                      fontWeight: bold,
+                    ),
+                  )
+                ],
               ),
-              Text(controller.readToken()),
+              Container(
+                height: 200,
+                color: Colors.transparent,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Row(
+                      children: [
+                        
+                        
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
