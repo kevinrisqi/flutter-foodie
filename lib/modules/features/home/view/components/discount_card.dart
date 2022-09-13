@@ -18,7 +18,7 @@ class DiscountCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(PromoPage()),
+      onTap: () => Get.to(PromoPage(promo: promo,)),
       child: Container(
         margin: EdgeInsets.only(
           right: margin,

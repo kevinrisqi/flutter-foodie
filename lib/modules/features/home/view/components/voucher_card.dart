@@ -3,28 +3,34 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/modules/features/home/models/promo_res/data_promo_model.dart';
 import 'package:foodie/modules/features/home/view/ui/promo_page.dart';
+import 'package:foodie/modules/global_controllers/currency_format.dart';
 
 import '../../../../../config/themes/theme.dart';
 import 'package:get/get.dart';
 
 class VoucherCard extends StatelessWidget {
-  late DataPromo promo;
-  VoucherCard({required this.promo, super.key});
+  DataPromo? promo;
+  double? width;
+  double? height;
+  double margin;
+  VoucherCard({this.width = 270, this.height = 150, this.margin = 26, this.promo, super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(PromoPage()),
+      onTap: () => Get.to(PromoPage(
+        promo: promo,
+      )),
       child: Container(
-        margin: EdgeInsets.only(right: 26),
+        margin: EdgeInsets.only(right: margin),
         child: Stack(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(
                 'assets/images/img_voucher1.png',
-                width: 270,
-                height: 150,
+                width: width,
+                height: height,
                 fit: BoxFit.cover,
               ),
             ),
@@ -32,8 +38,8 @@ class VoucherCard extends StatelessWidget {
               height: 6,
             ),
             Container(
-              width: 270,
-              height: 150,
+              width: width,
+              height: height,
               decoration: BoxDecoration(
                 color: primaryColor.withOpacity(0.85),
                 borderRadius: BorderRadius.circular(20),
@@ -42,7 +48,7 @@ class VoucherCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    promo.type.toString(),
+                    promo!.type.toString(),
                     style: primaryTextStyle.copyWith(
                       fontSize: 22,
                       fontWeight: bold,
@@ -50,7 +56,7 @@ class VoucherCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Rp ${promo.nominal}',
+                    CurrencyFormat.convertToIdr(promo!.nominal, 0),
                     style: primaryTextStyle.copyWith(
                       fontSize: 28,
                       fontWeight: superBold,
@@ -63,7 +69,7 @@ class VoucherCard extends StatelessWidget {
                   Container(
                     width: 210,
                     child: Text(
-                      'Berhasil mereferensikan rekan/teman untuk menjadi karyawan',
+                      promo!.nama.toString(),
                       textAlign: TextAlign.center,
                       style: primaryTextStyle.copyWith(
                         fontWeight: light,
