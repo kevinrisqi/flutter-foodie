@@ -7,6 +7,7 @@ Color greyColor = const Color(0xff8F8F8F);
 Color primaryColor = const Color(0xff00717F);
 Color backgroundColor = const Color(0xffFFFFFF);
 Color alertColor = const Color(0xffD81D1D);
+Color lightGreyColor = const Color(0xffE5E5E5);
 
 TextStyle primaryTextStyle = GoogleFonts.montserrat(color: fullBlackColor);
 

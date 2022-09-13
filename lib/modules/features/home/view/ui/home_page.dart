@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
 import 'package:foodie/modules/features/home/controllers/promo_controller.dart';
 import 'package:foodie/modules/features/home/view/components/discount_card.dart';
+import 'package:foodie/modules/features/home/view/components/search_box.dart';
 import 'package:foodie/modules/features/home/view/components/voucher_card.dart';
 import 'package:get/get.dart';
 
@@ -42,44 +44,7 @@ class _HomePageState extends State<HomePage> {
         Material(
           elevation: 10,
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-          child: Container(
-            width: double.infinity,
-            height: 75,
-            padding: EdgeInsets.symmetric(
-              horizontal: 25,
-              vertical: 10,
-            ),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(30),
-              ),
-            ),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Pencarian',
-                hintStyle: primaryTextStyle.copyWith(
-                  color: greyColor,
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: primaryColor,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
-                    color: primaryColor,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(
-                    color: primaryColor,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          child: SearchBox()
         ),
         // Container(
         //   margin: EdgeInsets.all(24),
@@ -124,21 +89,29 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
+              SizedBox(
+                height: 21,
+              ),
               Container(
                 height: 200,
                 color: Colors.transparent,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Row(
-                      children: [
-                        VoucherCard(),
-                        DiscountCard(),
-                        VoucherCard(),
-                        DiscountCard(),
-                      ],
-                    ),
-                  ],
+                child: Obx(
+                  () => ListView.builder(
+                    itemCount: cPromo.promo.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: ((context, index) {
+                      return ConditionalSwitch.single(
+                          context: context,
+                          valueBuilder: ((context) => cPromo.promo[index].type),
+                          caseBuilders: {
+                            'voucher': (context) =>
+                                VoucherCard(promo: cPromo.promo[index]),
+                            'diskon': (context) =>
+                                DiscountCard(promo: cPromo.promo[index])
+                          },
+                          fallbackBuilder: (context) => SizedBox());
+                    }),
+                  ),
                 ),
               ),
             ],
