@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/modules/features/home/models/promo_res/data_promo_model.dart';
 import 'package:foodie/modules/features/home/view/ui/promo_page.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../config/themes/theme.dart';
 import 'package:get/get.dart';

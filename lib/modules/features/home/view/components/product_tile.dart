@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:foodie/config/themes/theme.dart';
@@ -25,10 +26,12 @@ class ProductTile extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
-            'assets/images/img_food1.png',
+          CachedNetworkImage(
+            imageUrl: product!.foto.toString(),
             width: 75,
             height: 75,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
           SizedBox(
             width: 12,

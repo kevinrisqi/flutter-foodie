@@ -10,7 +10,7 @@ class ProductController extends GetxController {
   RxInt index = 0.obs;
   RxInt qty = 0.obs;
   TextEditingController noteController = TextEditingController();
-  RxList productList = [].obs;
+  RxList<DataProduct> productList = <DataProduct>[].obs;
 
   String token = AuthController().readToken();
 
@@ -39,12 +39,25 @@ class ProductController extends GetxController {
     super.onInit();
   }
 
+  List<DataProduct> get getProductByCategory {
+    if (categoryName.value.toLowerCase() == 'semua menu') {
+      return productList;
+    }
+    List<DataProduct> result = productList
+        .where((item) => item.kategori == categoryName.value.toLowerCase())
+        .toList();
+    // for (var item in result) {
+    //   print('${item.nama} : type ${item.kategori}');
+    // }
+    return result;
+  }
+
   Future<void> getProduct() async {
     try {
       await ProductRepository().fetchProduct(token).then((value) {
         productList.value = value.data!;
       });
-      print(productList);
+      // print(productList);
     } catch (e) {
       print(e);
     }

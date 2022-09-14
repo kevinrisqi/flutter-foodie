@@ -25,6 +25,7 @@ class CategoryTile extends StatelessWidget {
     ProductController cProduct = Get.find();
     return GestureDetector(
       onTap: () {
+        cProduct.index.value = index!;
         cProduct.changeCategory(name!, image!);
       },
       child: Obx(
