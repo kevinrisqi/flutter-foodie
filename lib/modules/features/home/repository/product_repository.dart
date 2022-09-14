@@ -12,7 +12,7 @@ class ProductRepository {
     var response = await http.get(Uri.parse(url), headers: headers);
 
     if (response.statusCode == 200) {
-      var json = jsonDecode(url);
+      var json = jsonDecode(response.body);
       return ProductRes.fromJson(json);
     } else {
       throw Exception('Data gagal dimuat');

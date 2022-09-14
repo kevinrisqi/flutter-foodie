@@ -6,6 +6,7 @@ import 'package:foodie/modules/features/home/controllers/product_controller.dart
 import 'package:foodie/modules/features/home/controllers/promo_controller.dart';
 import 'package:foodie/modules/features/home/view/components/category_tile.dart';
 import 'package:foodie/modules/features/home/view/components/discount_card.dart';
+import 'package:foodie/modules/features/home/view/components/product_tile.dart';
 import 'package:foodie/modules/features/home/view/components/search_box.dart';
 import 'package:foodie/modules/features/home/view/components/voucher_card.dart';
 import 'package:get/get.dart';
@@ -139,7 +140,18 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 8,
               ),
-              
+              Obx(
+                () => Container(
+                  height: 300,
+                  child: ListView.builder(
+                    itemCount: cProduct.productList.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) => ProductTile(
+                      product: cProduct.productList[index],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

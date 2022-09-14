@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/modules/features/home/models/product_res/data_product.dart';
+import 'package:foodie/modules/features/home/repository/product_repository.dart';
+import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {
   RxString categoryName = 'Semua Menu'.obs;
   RxString categoryImage = 'assets/images/ic_all_food.png'.obs;
   RxInt index = 0.obs;
+  RxInt qty = 0.obs;
   TextEditingController noteController = TextEditingController();
+  RxList productList = [].obs;
+
+  String token = AuthController().readToken();
 
   RxList categoryList = [
     {
@@ -26,8 +33,33 @@ class ProductController extends GetxController {
     },
   ].obs;
 
+  @override
+  void onInit() {
+    getProduct();
+    super.onInit();
+  }
+
+  Future<void> getProduct() async {
+    try {
+      await ProductRepository().fetchProduct(token).then((value) {
+        productList.value = value.data!;
+      });
+      print(productList);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void changeCategory(String name, String image) {
     categoryName.value = name;
     categoryImage.value = image;
+  }
+
+  void addQuantity() {
+    qty++;
+  }
+
+  void minQuantity() {
+    qty--;
   }
 }
