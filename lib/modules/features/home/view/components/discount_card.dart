@@ -13,12 +13,18 @@ class DiscountCard extends StatelessWidget {
   double? height;
   double margin;
   DiscountCard(
-      {required this.promo, this.width = 270, this.height = 150, this.margin = 26, super.key});
+      {required this.promo,
+      this.width = 270,
+      this.height = 150,
+      this.margin = 26,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(PromoPage(promo: promo,)),
+      onTap: () => Get.to(PromoPage(
+        promo: promo,
+      )),
       child: Container(
         margin: EdgeInsets.only(
           right: margin,
@@ -47,38 +53,71 @@ class DiscountCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      style: primaryTextStyle.copyWith(
-                        color: fullBlackColor,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        promo.type.toString(),
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 22,
+                          fontWeight: extraBold,
+                          color: backgroundColor,
+                        ),
                       ),
-                      children: [
-                        TextSpan(
-                          text: promo.type,
-                          style: primaryTextStyle.copyWith(
-                            fontSize: 22,
-                            fontWeight: extraBold,
-                            color: backgroundColor,
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Stack(
+                        children: [
+                          Text(
+                            promo.nominal.toString(),
+                            style: primaryTextStyle.copyWith(
+                                fontSize: 35,
+                                fontWeight: extraBold,
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 0
+                                  ..color = backgroundColor),
                           ),
-                        ),
-                        TextSpan(
-                          text: ' ${promo.nominal}',
-                          style: primaryTextStyle.copyWith(
-                            fontWeight: superBold,
-                            color: backgroundColor,
-                            fontSize: 40,
+                          Text(
+                            promo.nominal.toString(),
+                            style: primaryTextStyle.copyWith(
+                              color: Colors.transparent,
+                              fontSize: 35,
+                              fontWeight: extraBold,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: ' %',
-                          style: primaryTextStyle.copyWith(
-                            fontWeight: superBold,
-                            color: backgroundColor,
-                            fontSize: 40,
+                        ],
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Stack(
+                        children: [
+                          Text(
+                            '%',
+                            style: primaryTextStyle.copyWith(
+                                fontSize: 35,
+                                fontWeight: extraBold,
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 0
+                                  ..color = backgroundColor),
                           ),
-                        ),
-                      ],
-                    ),
+                          Text(
+                            '%',
+                            style: primaryTextStyle.copyWith(
+                              color: Colors.transparent,
+                              fontSize: 35,
+                              fontWeight: extraBold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 8,

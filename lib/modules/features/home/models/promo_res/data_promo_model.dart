@@ -35,7 +35,8 @@ class DataPromo {
     this.isDeleted,
   });
 
-  factory DataPromo.fromJson(Map<String, dynamic> json) => _$DataPromoFromJson(json);
+  factory DataPromo.fromJson(Map<String, dynamic> json) =>
+      _$DataPromoFromJson(json);
 
   Map<String, dynamic> toJson() => _$DataPromoToJson(this);
 }

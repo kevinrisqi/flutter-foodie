@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:foodie/config/themes/theme.dart';
 import 'package:foodie/modules/features/home/controllers/promo_controller.dart';
 import 'package:foodie/modules/features/home/models/promo_res/data_promo_model.dart';
@@ -14,6 +15,7 @@ import 'package:foodie/modules/features/order/view/ui/order_page.dart';
 import 'package:foodie/modules/features/profile/view/ui/profile_page.dart';
 import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 
 class PromoPage extends StatelessWidget {
   DataPromo? promo;
@@ -113,6 +115,7 @@ class PromoPage extends StatelessWidget {
                 )),
             Container(
               width: double.infinity,
+              height: 500,
               padding: EdgeInsets.only(
                 top: 45,
                 right: 22,
@@ -180,8 +183,8 @@ class PromoPage extends StatelessWidget {
                           ),
                           Container(
                             constraints: BoxConstraints(maxWidth: 290),
-                            child: Text(
-                              promo!.syaratKetentuan.toString(),
+                            child: Html(
+                              data: promo!.syaratKetentuan.toString(),
                             ),
                           ),
                         ],
@@ -194,6 +197,7 @@ class PromoPage extends StatelessWidget {
           ],
         ),
       ),
+      // bottomNavigationBar: BottomNarBar(),
     );
   }
 }

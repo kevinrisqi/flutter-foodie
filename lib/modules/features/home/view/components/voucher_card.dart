@@ -13,7 +13,12 @@ class VoucherCard extends StatelessWidget {
   double? width;
   double? height;
   double margin;
-  VoucherCard({this.width = 270, this.height = 150, this.margin = 26, this.promo, super.key});
+  VoucherCard(
+      {this.width = 270,
+      this.height = 150,
+      this.margin = 26,
+      this.promo,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +60,27 @@ class VoucherCard extends StatelessWidget {
                       color: backgroundColor,
                     ),
                   ),
-                  Text(
-                    CurrencyFormat.convertToIdr(promo!.nominal, 0),
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 28,
-                      fontWeight: superBold,
-                      color: backgroundColor,
-                    ),
+                  Stack(
+                    children: [
+                      Text(
+                        CurrencyFormat.convertToIdr(promo!.nominal, 0),
+                        style: primaryTextStyle.copyWith(
+                            fontSize: 28,
+                            fontWeight: superBold,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 0
+                              ..color = backgroundColor),
+                      ),
+                      Text(
+                        CurrencyFormat.convertToIdr(promo!.nominal, 0),
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 28,
+                          fontWeight: superBold,
+                          color: Colors.transparent,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 8,

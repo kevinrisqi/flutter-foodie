@@ -53,21 +53,21 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NoConnectionPage(
-        child: SafeArea(
-          child: Obx(
-            () => body(),
+        backgroundColor: lightGreyColor,
+        body: NoConnectionPage(
+          child: SafeArea(
+            child: Obx(
+              () => body(),
+            ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          handleLogout();
-        },
-        child: Icon(Icons.logout),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: BottomNarBar()
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            handleLogout();
+          },
+          child: Icon(Icons.logout),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        bottomNavigationBar: BottomNarBar());
   }
 }

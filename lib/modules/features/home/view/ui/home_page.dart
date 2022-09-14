@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
+import 'package:foodie/modules/features/home/controllers/product_controller.dart';
 import 'package:foodie/modules/features/home/controllers/promo_controller.dart';
+import 'package:foodie/modules/features/home/view/components/category_tile.dart';
 import 'package:foodie/modules/features/home/view/components/discount_card.dart';
 import 'package:foodie/modules/features/home/view/components/search_box.dart';
 import 'package:foodie/modules/features/home/view/components/voucher_card.dart';
@@ -26,6 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   final PromoController cPromo = Get.find<PromoController>();
 
+  final ProductController cProduct = Get.find();
+
   @override
   void initState() {
     handleGetPromo();
@@ -42,27 +46,9 @@ class _HomePageState extends State<HomePage> {
     return ListView(
       children: [
         Material(
-          elevation: 10,
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-          child: SearchBox()
-        ),
-        // Container(
-        //   margin: EdgeInsets.all(24),
-        //   child: Column(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       Text('${controller.nama}'),
-        //       SizedBox(
-        //         height: 12,
-        //       ),
-        //       Text('${controller.email}'),
-        //       SizedBox(
-        //         height: 10,
-        //       ),
-        //       Text(controller.readToken()),
-        //     ],
-        //   ),
-        // ),
+            elevation: 10,
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+            child: SearchBox()),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 25),
           child: Column(
@@ -93,8 +79,7 @@ class _HomePageState extends State<HomePage> {
                 height: 21,
               ),
               Container(
-                height: 200,
-                color: Colors.transparent,
+                height: 150,
                 child: Obx(
                   () => ListView.builder(
                     itemCount: cPromo.promo.length,
@@ -114,6 +99,47 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: double.infinity,
+                height: 35,
+                child: ListView.builder(
+                  itemCount: cProduct.categoryList.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) =>
+                      CategoryTile(
+                    name: cProduct.categoryList[index]['name'],
+                    image: cProduct.categoryList[index]['image'],
+                    index: index,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Obx(
+                () => Row(
+                  children: [
+                    Image.asset(
+                      cProduct.categoryImage.toString(),
+                      color: primaryColor,
+                      width: 24,
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      cProduct.categoryName.toString(),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              
             ],
           ),
         ),

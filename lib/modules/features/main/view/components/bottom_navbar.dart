@@ -10,44 +10,44 @@ class BottomNarBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MainController cMain = Get.find<MainController>();
-  final AuthController controller = Get.find<AuthController>();
+    final AuthController controller = Get.find<AuthController>();
     return ClipRRect(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-        child: BottomAppBar(
-          child: BottomNavigationBar(
-            backgroundColor: blackColor,
-            onTap: (value) {
-              cMain.currentIndex.value = value;
-              print(cMain.currentIndex);
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  size: 25,
-                  color: backgroundColor,
-                ),
-                label: 'Beranda',
+      borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+      child: BottomAppBar(
+        child: BottomNavigationBar(
+          backgroundColor: blackColor,
+          onTap: (value) {
+            cMain.currentIndex.value = value;
+            print(cMain.currentIndex);
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                size: 25,
+                color: backgroundColor,
               ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/images/ic_order.png',
-                  width: 32,
-                ),
-                label: 'Pesanan',
+              label: 'Beranda',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                'assets/images/ic_order.png',
+                width: 32,
               ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/images/ic_user.png',
-                  width: 20,
-                ),
-                label: 'Profil',
+              label: 'Pesanan',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                'assets/images/ic_user.png',
+                width: 20,
               ),
-            ],
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.grey,
-          ),
+              label: 'Profil',
+            ),
+          ],
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey,
         ),
-      );
+      ),
+    );
   }
 }
