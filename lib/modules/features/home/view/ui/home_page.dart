@@ -75,29 +75,25 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 21,
             ),
-            Obx(
-              () => cPromo.isLoading.isTrue
-                  ? CircularProgressIndicator()
-                  : Container(
-                      height: 150,
-                      child: ListView.builder(
-                        itemCount: cPromo.promo.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: ((context, index) {
-                          return ConditionalSwitch.single(
-                              context: context,
-                              valueBuilder: ((context) =>
-                                  cPromo.promo[index].type),
-                              caseBuilders: {
-                                'voucher': (context) =>
-                                    VoucherCard(promo: cPromo.promo[index]),
-                                'diskon': (context) =>
-                                    DiscountCard(promo: cPromo.promo[index])
-                              },
-                              fallbackBuilder: (context) => SizedBox());
-                        }),
-                      ),
-                    ),
+            Container(
+              height: 150,
+              child: ListView.builder(
+                itemCount: cPromo.promo.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: ((context, index) {
+                  return ConditionalSwitch.single(
+                    context: context,
+                    valueBuilder: ((context) => cPromo.promo[index].type),
+                    caseBuilders: {
+                      'voucher': (context) =>
+                          VoucherCard(promo: cPromo.promo[index]),
+                      'diskon': (context) =>
+                          DiscountCard(promo: cPromo.promo[index])
+                    },
+                    fallbackBuilder: (context) => SizedBox(),
+                  );
+                }),
+              ),
             ),
             SizedBox(
               height: 20,
@@ -118,38 +114,35 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 30,
             ),
-            Obx(
-              () => Row(
-                children: [
-                  Image.asset(
-                    cProduct.categoryImage.toString(),
-                    color: primaryColor,
-                    width: 24,
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    cProduct.categoryName.toString(),
-                  ),
-                ],
-              ),
+            Row(
+              children: [
+                Image.asset(
+                  cProduct.categoryImage.toString(),
+                  color: primaryColor,
+                  width: 24,
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  cProduct.categoryName.toString(),
+                ),
+              ],
             ),
             SizedBox(
               height: 8,
             ),
-            Obx(
-              () => Container(
-                height: 300,
-                child: ListView.builder(
-                  itemCount: cProduct.getProductByCategory.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) => ProductTile(
-                    product: cProduct.getProductByCategory[index],
-                  ),
+            Container(
+              height: 300,
+              child: ListView.builder(
+                itemCount: cProduct.getProductByCategory.length,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) => ProductTile(
+                  product: cProduct.getProductByCategory[index],
                 ),
               ),
             ),
+
             // cProduct.obx((state) => Container(
             //     height: 300,
             //     child: ListView.builder(
@@ -168,15 +161,19 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    return ListView(
-      children: [
-        Material(
-          elevation: 10,
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-          child: SearchBox(),
-        ),
-        ProductController.to.isTyping.isTrue ? SearchPage() : body()
-      ],
+    return Obx(
+      () => ListView(
+        children: [
+          Material(
+            elevation: 10,
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+            child: SearchBox(),
+          ),
+          ProductController.to.isTyping.isTrue ? SearchPage() : body()
+        ],
+      ),
     );
   }
 }
