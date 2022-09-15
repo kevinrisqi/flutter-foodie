@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodie/modules/features/home/controllers/product_controller.dart';
+import 'package:foodie/modules/global_controllers/debouncer.dart';
 
 import '../../../../../config/themes/theme.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ class SearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductController cProduct = Get.find();
+    Debouncer debouncer = Debouncer();
 
     return Container(
       width: double.infinity,
@@ -28,14 +30,10 @@ class SearchBox extends StatelessWidget {
       ),
       child: TextFormField(
         onChanged: (text) {
-          if (text == '') {
-            cProduct.isTyping.value = false;
-          } else {
-            cProduct.isTyping.value = true;
-          }
-            print(cProduct.isTyping.value);
-
-          cProduct.searchProduct;
+          debouncer.run(() {
+            cProduct.searchProduct;
+            cProduct.searchValue.value = text;
+          });
         },
         controller: cProduct.searchController,
         decoration: InputDecoration(

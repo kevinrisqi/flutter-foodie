@@ -11,6 +11,7 @@ import 'package:foodie/modules/features/home/view/components/search_box.dart';
 import 'package:foodie/modules/features/home/view/components/voucher_card.dart';
 import 'package:foodie/modules/features/home/view/ui/search_page.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../config/themes/theme.dart';
 import '../../../main/controllers/main_controller.dart';
@@ -69,7 +70,8 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 20,
                     fontWeight: bold,
                   ),
-                )
+                ),
+                // ElevatedButton(onPressed: () => cPromo.isLoading.toggle(), child: Text('tes'))
               ],
             ),
             SizedBox(
@@ -104,7 +106,7 @@ class _HomePageState extends State<HomePage> {
               child: ListView.builder(
                 itemCount: cProduct.categoryList.length,
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) => CategoryTile(
+                itemBuilder: (context, index) => CategoryTile(
                   name: cProduct.categoryList[index]['name'],
                   image: cProduct.categoryList[index]['image'],
                   index: index,
@@ -142,7 +144,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-
             // cProduct.obx((state) => Container(
             //     height: 300,
             //     child: ListView.builder(

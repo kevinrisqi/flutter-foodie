@@ -28,29 +28,26 @@ class CategoryTile extends StatelessWidget {
         cProduct.index.value = index!;
         cProduct.changeCategory(name!, image!);
       },
-      child: Obx(
-        () => Container(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 14),
-          decoration: BoxDecoration(
-            color:
-                cProduct.index.value == index ? fullBlackColor : primaryColor,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          margin: EdgeInsets.only(right: 12),
-          child: Row(
-            children: [
-              Image.asset(image.toString()),
-              SizedBox(
-                width: 8,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 14),
+        decoration: BoxDecoration(
+          color: cProduct.index.value == index ? fullBlackColor : primaryColor,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        margin: EdgeInsets.only(right: 12),
+        child: Row(
+          children: [
+            Image.asset(image.toString()),
+            SizedBox(
+              width: 8,
+            ),
+            Text(
+              name.toString(),
+              style: primaryTextStyle.copyWith(
+                color: backgroundColor,
               ),
-              Text(
-                name.toString(),
-                style: primaryTextStyle.copyWith(
-                  color: backgroundColor,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

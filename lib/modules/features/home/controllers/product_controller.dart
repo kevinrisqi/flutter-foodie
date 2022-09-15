@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:foodie/modules/features/home/models/product_res/data_product.dart';
 import 'package:foodie/modules/features/home/repository/product_repository.dart';
 import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
+import 'package:foodie/modules/global_controllers/debouncer.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController with StateMixin {
@@ -14,6 +17,8 @@ class ProductController extends GetxController with StateMixin {
   TextEditingController noteController = TextEditingController();
   TextEditingController searchController = TextEditingController();
   RxList<DataProduct> productList = <DataProduct>[].obs;
+  Debouncer debouncer = Debouncer();
+  RxString searchValue = ''.obs;
 
   String token = AuthController().readToken();
 
@@ -58,15 +63,24 @@ class ProductController extends GetxController with StateMixin {
   }
 
   List<DataProduct> get searchProduct {
-    // isTyping.value = true;
-    List<DataProduct> result = productList
-        .where((item) => item.nama!
-            .toLowerCase()
-            .contains(searchController.text.toLowerCase()))
-        .toList();
-    for (var item in result) {
-      // print('${item.nama} : type ${item.kategori}');
+    if (searchController.text == '') {
+      isTyping.value = false;
+    } else {
+      isTyping.value = true;
     }
+    // print(isTyping.value);
+    List<DataProduct> result = productList
+        .where(
+          (item) => item.nama!.toLowerCase().contains(
+                searchValue.toLowerCase(),
+              ),
+        )
+        .toList();
+    update();
+    for (var item in result) {
+      log('${item.nama} : type ${item.kategori}');
+    }
+    log(result.length.toString());
     return result;
   }
 
