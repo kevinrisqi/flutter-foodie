@@ -12,6 +12,7 @@ class DataProduct {
   String? deskripsi;
   String? foto;
   int? status;
+  int? count;
 
   DataProduct({
     this.idMenu,
@@ -21,9 +22,11 @@ class DataProduct {
     this.deskripsi,
     this.foto,
     this.status,
+    this.count = 0,
   });
 
-  factory DataProduct.fromJson(Map<String, dynamic> json) => _$DataProductFromJson(json);
+  factory DataProduct.fromJson(Map<String, dynamic> json) =>
+      _$DataProductFromJson(json);
 
   Map<String, dynamic> toJson() => _$DataProductToJson(this);
 }

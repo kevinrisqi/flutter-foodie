@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 21,
             ),
-            Container(
+            cPromo.isLoading.isTrue ? CircularProgressIndicator() : Container(
               height: 150,
               child: ListView.builder(
                 itemCount: cPromo.promo.length,

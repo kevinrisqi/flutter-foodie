@@ -91,36 +91,32 @@ class ProductTile extends StatelessWidget {
               ],
             ),
           ),
-          Obx(
-            () => Row(
+          GetBuilder<ProductController>(
+            builder: (controller) => Row(
               children: [
-                cProduct.qty.value == 0
-                    ? SizedBox()
-                    : GestureDetector(
-                        onTap: () => cProduct.minQuantity(),
-                        child: Image.asset(
-                          'assets/images/ic_min.png',
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
+                GestureDetector(
+                  onTap: () => cProduct.minQuantity(product!.idMenu!),
+                  child: Image.asset(
+                    'assets/images/ic_min.png',
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
                 SizedBox(
                   width: 8,
                 ),
-                cProduct.qty.value == 0
-                    ? SizedBox()
-                    : Text(
-                        cProduct.qty.toString(),
-                        style: primaryTextStyle.copyWith(
-                          fontWeight: bold,
-                          fontSize: 18,
-                        ),
-                      ),
+                Text(
+                  product!.count.toString(),
+                  style: primaryTextStyle.copyWith(
+                    fontWeight: bold,
+                    fontSize: 18,
+                  ),
+                ),
                 SizedBox(
                   width: 8,
                 ),
                 GestureDetector(
-                  onTap: () => cProduct.addQuantity(),
+                  onTap: () => cProduct.addQuantity(product!.idMenu!),
                   child: Image.asset(
                     'assets/images/ic_plus.png',
                     width: 20,

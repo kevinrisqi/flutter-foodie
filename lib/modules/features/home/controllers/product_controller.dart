@@ -19,6 +19,8 @@ class ProductController extends GetxController with StateMixin {
   RxList<DataProduct> productList = <DataProduct>[].obs;
   Debouncer debouncer = Debouncer();
   RxString searchValue = ''.obs;
+  RxInt idMenu = 0.obs;
+  RxInt indexProduct = 0.obs;
 
   String token = AuthController().readToken();
 
@@ -76,11 +78,10 @@ class ProductController extends GetxController with StateMixin {
               ),
         )
         .toList();
-    update();
-    for (var item in result) {
-      log('${item.nama} : type ${item.kategori}');
-    }
-    log(result.length.toString());
+    // for (var item in result) {
+    //   log('${item.nama} : type ${item.kategori}');
+    // }
+    // log(result.length.toString());
     return result;
   }
 
@@ -100,11 +101,34 @@ class ProductController extends GetxController with StateMixin {
     categoryImage.value = image;
   }
 
-  void addQuantity() {
-    qty++;
+  void addQuantity(int id) {
+    idMenu.value = id;
+    getIndexProduct();
+    productList[indexProduct.value].count =
+        productList[indexProduct.value].count! + 1;
+    print('ID Menu: $idMenu');
+    print('Index Menu: $indexProduct');
+    print('Nama: ${productList[indexProduct.value].nama}');
+    print('Qty: ${productList[indexProduct.value].count}');
+    update();
+    // print(getIndexProduct());
+    // qty++;
   }
 
-  void minQuantity() {
-    qty--;
+  void minQuantity(int id) {
+    idMenu.value = id;
+    getIndexProduct();
+    productList[indexProduct.value].count =
+        productList[indexProduct.value].count! - 1;
+    print('ID Menu: $idMenu');
+    print('Index Menu: $indexProduct');
+    print('Nama: ${productList[indexProduct.value].nama}');
+    print('Qty: ${productList[indexProduct.value].count}');
+    update();
+  }
+
+  void getIndexProduct() {
+    indexProduct.value =
+        productList.indexWhere((element) => element.idMenu == idMenu.value);
   }
 }
