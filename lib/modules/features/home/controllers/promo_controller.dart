@@ -12,7 +12,7 @@ class PromoController extends GetxController {
       await PromoRepository().fetchPromo(token).then((value) {
         promo.value = value.data!;
       });
-      await Future.delayed(Duration(seconds: 1));
+      // await Future.delayed(Duration(seconds: 1));
       isLoading.value = false;
       // print(await PromoRepository().fetchPromo(token));
     } catch (e) {

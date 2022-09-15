@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:foodie/modules/features/main/view/ui/main_page.dart';
 import 'package:geocoding/geocoding.dart';
@@ -70,7 +71,7 @@ class FindLocationController extends GetxController {
           '${place.street}, ${place.name}, ${place.locality}, ${place.subAdministrativeArea}';
       // print(address.value);
     } catch (e) {
-      print('Failed to get location');
+      log('Failed to get location');
     }
   }
 }

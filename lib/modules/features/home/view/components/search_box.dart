@@ -1,14 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:foodie/modules/features/home/controllers/product_controller.dart';
 
 import '../../../../../config/themes/theme.dart';
+import 'package:get/get.dart';
 
 class SearchBox extends StatelessWidget {
   const SearchBox({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ProductController cProduct = Get.find();
+
     return Container(
       width: double.infinity,
       height: 75,
@@ -23,6 +27,17 @@ class SearchBox extends StatelessWidget {
         ),
       ),
       child: TextFormField(
+        onChanged: (text) {
+          if (text == '') {
+            cProduct.isTyping.value = false;
+          } else {
+            cProduct.isTyping.value = true;
+          }
+            print(cProduct.isTyping.value);
+
+          cProduct.searchProduct;
+        },
+        controller: cProduct.searchController,
         decoration: InputDecoration(
           hintText: 'Pencarian',
           hintStyle: primaryTextStyle.copyWith(

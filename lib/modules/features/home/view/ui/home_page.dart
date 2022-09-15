@@ -9,6 +9,7 @@ import 'package:foodie/modules/features/home/view/components/discount_card.dart'
 import 'package:foodie/modules/features/home/view/components/product_tile.dart';
 import 'package:foodie/modules/features/home/view/components/search_box.dart';
 import 'package:foodie/modules/features/home/view/components/voucher_card.dart';
+import 'package:foodie/modules/features/home/view/ui/search_page.dart';
 import 'package:get/get.dart';
 
 import '../../../../../config/themes/theme.dart';
@@ -44,120 +45,137 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget body() {
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 25),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 22,
+            ),
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/ic_promo.png',
+                  width: 23,
+                  height: 16,
+                ),
+                SizedBox(
+                  width: 9,
+                ),
+                Text(
+                  'Promo yang tersedia',
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 20,
+                    fontWeight: bold,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 21,
+            ),
+            Obx(
+              () => cPromo.isLoading.isTrue
+                  ? CircularProgressIndicator()
+                  : Container(
+                      height: 150,
+                      child: ListView.builder(
+                        itemCount: cPromo.promo.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: ((context, index) {
+                          return ConditionalSwitch.single(
+                              context: context,
+                              valueBuilder: ((context) =>
+                                  cPromo.promo[index].type),
+                              caseBuilders: {
+                                'voucher': (context) =>
+                                    VoucherCard(promo: cPromo.promo[index]),
+                                'diskon': (context) =>
+                                    DiscountCard(promo: cPromo.promo[index])
+                              },
+                              fallbackBuilder: (context) => SizedBox());
+                        }),
+                      ),
+                    ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: double.infinity,
+              height: 35,
+              child: ListView.builder(
+                itemCount: cProduct.categoryList.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) => CategoryTile(
+                  name: cProduct.categoryList[index]['name'],
+                  image: cProduct.categoryList[index]['image'],
+                  index: index,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Obx(
+              () => Row(
+                children: [
+                  Image.asset(
+                    cProduct.categoryImage.toString(),
+                    color: primaryColor,
+                    width: 24,
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    cProduct.categoryName.toString(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Obx(
+              () => Container(
+                height: 300,
+                child: ListView.builder(
+                  itemCount: cProduct.getProductByCategory.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) => ProductTile(
+                    product: cProduct.getProductByCategory[index],
+                  ),
+                ),
+              ),
+            ),
+            // cProduct.obx((state) => Container(
+            //     height: 300,
+            //     child: ListView.builder(
+            //       itemCount: cProduct.getProductByCategory.length,
+            //       scrollDirection: Axis.vertical,
+            //       itemBuilder: (context, index) => ProductTile(
+            //         product: cProduct.getProductByCategory[index],
+            //       ),
+            //     ),
+            //   ),
+            //   onEmpty: SizedBox(),
+            //   onLoading: CircularProgressIndicator(),
+            // )
+          ],
+        ),
+      );
+    }
+
     return ListView(
       children: [
         Material(
-            elevation: 10,
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-            child: SearchBox()),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 25),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 22,
-              ),
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/images/ic_promo.png',
-                    width: 23,
-                    height: 16,
-                  ),
-                  SizedBox(
-                    width: 9,
-                  ),
-                  Text(
-                    'Promo yang tersedia',
-                    style: primaryTextStyle.copyWith(
-                      fontSize: 20,
-                      fontWeight: bold,
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 21,
-              ),
-              Obx(
-                () => cPromo.isLoading.isTrue
-                    ? CircularProgressIndicator()
-                    : Container(
-                        height: 150,
-                        child: ListView.builder(
-                          itemCount: cPromo.promo.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: ((context, index) {
-                            return ConditionalSwitch.single(
-                                context: context,
-                                valueBuilder: ((context) =>
-                                    cPromo.promo[index].type),
-                                caseBuilders: {
-                                  'voucher': (context) =>
-                                      VoucherCard(promo: cPromo.promo[index]),
-                                  'diskon': (context) =>
-                                      DiscountCard(promo: cPromo.promo[index])
-                                },
-                                fallbackBuilder: (context) => SizedBox());
-                          }),
-                        ),
-                      ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: double.infinity,
-                height: 35,
-                child: ListView.builder(
-                  itemCount: cProduct.categoryList.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) =>
-                      CategoryTile(
-                    name: cProduct.categoryList[index]['name'],
-                    image: cProduct.categoryList[index]['image'],
-                    index: index,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Obx(
-                () => Row(
-                  children: [
-                    Image.asset(
-                      cProduct.categoryImage.toString(),
-                      color: primaryColor,
-                      width: 24,
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      cProduct.categoryName.toString(),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Obx(
-                () => Container(
-                  height: 300,
-                  child: ListView.builder(
-                    itemCount: cProduct.getProductByCategory.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) => ProductTile(
-                      product: cProduct.getProductByCategory[index],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          elevation: 10,
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+          child: SearchBox(),
         ),
+        ProductController.to.isTyping.isTrue ? SearchPage() : body()
       ],
     );
   }

@@ -2,7 +2,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:foodie/config/themes/theme.dart';
 import 'package:foodie/modules/features/home/controllers/product_controller.dart';
 import 'package:foodie/modules/features/home/models/product_res/data_product.dart';
@@ -71,7 +70,7 @@ class ProductTile extends StatelessWidget {
                     ),
                     SizedBox(width: 4),
                     Container(
-                      width: 140,
+                      width: 120,
                       child: TextField(
                         style: primaryTextStyle.copyWith(
                           fontSize: 13,
