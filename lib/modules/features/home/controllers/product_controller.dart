@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:foodie/modules/features/home/models/detail_product_res.dart';
 import 'package:foodie/modules/features/home/models/product_res/data_product.dart';
 import 'package:foodie/modules/features/home/repository/product_repository.dart';
+import 'package:foodie/modules/features/home/view/ui/detail_product_page.dart';
 import 'package:foodie/modules/features/sign-in/controllers/auth_controller.dart';
 import 'package:foodie/modules/global_controllers/debouncer.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,7 @@ class ProductController extends GetxController with StateMixin {
   TextEditingController noteController = TextEditingController();
   TextEditingController searchController = TextEditingController();
   RxList<DataProduct> productList = <DataProduct>[].obs;
+  Rx<Data> detailProduct = Data().obs;
   Debouncer debouncer = Debouncer();
   RxString searchValue = ''.obs;
   RxInt idMenu = 0.obs;
@@ -40,6 +43,33 @@ class ProductController extends GetxController with StateMixin {
     {
       'image': 'assets/images/ic_food.png',
       'name': 'Snack',
+    },
+  ].obs;
+
+  RxList detailMenuList = [
+    {
+      'image': 'assets/images/ic_price.png',
+      'name': 'Harga',
+      'value': 'Rp 10.000',
+      'action': 'null'
+    },
+    {
+      'image': 'assets/images/ic_level.png',
+      'name': 'Level',
+      'value': '1',
+      'action': 'levelModalBottomSheet'
+    },
+    {
+      'image': 'assets/images/ic_toping.png',
+      'name': 'Toping',
+      'value': 'Mozarella',
+      'action': 'topingModalBottomSheet'
+    },
+    {
+      'image': 'assets/images/ic_note.png',
+      'name': 'Catatan',
+      'value': 'Lorem Ipsum..........',
+      'action': 'catatanModalBottomSheet'
     },
   ].obs;
 
@@ -96,6 +126,19 @@ class ProductController extends GetxController with StateMixin {
     // print(productList);
   }
 
+  Future<void> getDetailProduct() async {
+    await ProductRepository()
+        .fetchDetailProduct(token, idMenu.value)
+        .then((value) {
+      detailProduct.value = value.data!;
+      getIndexProduct();
+      // print('ID Source: $idMenu');
+      // print(detailProduct.value.topping![0].keterangan);
+      // print(value.data!.menu!.nama);
+    });
+    update();
+  }
+
   void changeCategory(String name, String image) {
     categoryName.value = name;
     categoryImage.value = image;
@@ -125,6 +168,11 @@ class ProductController extends GetxController with StateMixin {
     print('Nama: ${productList[indexProduct.value].nama}');
     print('Qty: ${productList[indexProduct.value].count}');
     update();
+  }
+
+  void toDetailProduct(int id) {
+    idMenu.value = id;
+    Get.to(const DetailProductPage());
   }
 
   void getIndexProduct() {
