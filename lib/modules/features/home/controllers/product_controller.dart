@@ -51,25 +51,29 @@ class ProductController extends GetxController with StateMixin {
       'image': 'assets/images/ic_price.png',
       'name': 'Harga',
       'value': 'Rp 10.000',
-      'action': 'null'
+      'action': 'null',
+      'isVisible': true,
     },
     {
       'image': 'assets/images/ic_level.png',
       'name': 'Level',
       'value': '1',
-      'action': 'levelModalBottomSheet'
+      'action': 'levelModalBottomSheet',
+      'isVisible': false,
     },
     {
       'image': 'assets/images/ic_toping.png',
       'name': 'Toping',
       'value': 'Mozarella',
-      'action': 'topingModalBottomSheet'
+      'action': 'topingModalBottomSheet',
+      'isVisible': false,
     },
     {
       'image': 'assets/images/ic_note.png',
       'name': 'Catatan',
       'value': 'Lorem Ipsum..........',
-      'action': 'catatanModalBottomSheet'
+      'action': 'catatanModalBottomSheet',
+      'isVisible': true,
     },
   ].obs;
 
